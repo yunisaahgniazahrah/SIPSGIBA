@@ -521,13 +521,21 @@ else:
                 df_silhouette = pd.DataFrame({
                     "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
                     "Silhouette Coefficient": sample_silhouette_values,
-                    "Cluster": labels
                 })
 
+                for cluster_id in sorted(set(labels)):
+                    df_silhouette[f"C{cluster_id}"] = [
+                        val if labels[i] == cluster_id else None
+                        for i, val in enumerate(sample_silhouette_values)
+                ]
                 with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
                     st.dataframe(df_silhouette)
 
                 # Boxplot distribusi per cluster
+                df_boxplot = pd.DataFrame({
+                    "Cluster": labels,
+                    "Silhouette Coefficient": sample_silhouette_values
+                })
                 st.subheader("Distribusi Silhouette Coefficient per Cluster")
                 fig, ax = plt.subplots()
                 sns.boxplot(x="Cluster", y="Silhouette Coefficient", data=df_silhouette, ax=ax)
