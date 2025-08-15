@@ -514,13 +514,13 @@ else:
                 # Rata-rata
                 silhouette_avg = silhouette_score(X, labels)
                 if silhouette_avg > 0.70:
-                    struktur = "Strong Structure"
+                    struktur_avg = "Strong Structure"
                 elif silhouette_avg > 0.50:
-                    struktur = "Medium Structure"
+                    struktur_avg = "Medium Structure"
                 elif silhouette_avg > 0.25:
-                    struktur = "Weak Structure"
+                    struktur_avg = "Weak Structure"
                 else:
-                    struktur = "No Structure"
+                    struktur_avg = "No Structure"
                 st.subheader("Silhouette Coefficient (Average)")
                 st.info(f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
 
@@ -531,6 +531,17 @@ else:
                     "Silhouette Coefficient": np.round(sample_silhouette_values, 3),
                     "Cluster": labels
                 })
+                def kategori_silhouette(value):
+                    if value > 0.70:
+                        return "Strong Structure"
+                    elif value > 0.50:
+                        return "Medium Structure"
+                    elif value > 0.25:
+                        return "Weak Structure"
+                    else:
+                        return "No Structure"
+
+                df_silhouette["Kategori Struktur"] = df_silhouette["Silhouette"].apply(kategori_silhouette)
 
                 with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
                     st.dataframe(df_silhouette)
