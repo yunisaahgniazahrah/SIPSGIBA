@@ -26,9 +26,9 @@ def get_connection():
     try:
         connection = mysql.connector.connect(
             host="sql12.freesqldatabase.com",
-            user="sql12794225",
-            password="EjNsJCx7HG",
-            database="sql12794225",
+            user="sql12795100",
+            password="3PYGpiVLtw",
+            database="sql12795100",
             port=3306
         )
         return connection
@@ -521,5 +521,6 @@ else:
     st.markdown(
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
+
 
 )
