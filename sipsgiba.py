@@ -503,6 +503,35 @@ else:
                     df_jarak_final.index = [f'Data {i+1}' for i in df_jarak_final.index]
                     with st.expander("Berikut ini adalah tabel jarak data ke tiap centroid (Iterasi 10)", expanded=True):
                          st.dataframe(df_jarak_final)
+                if st.session_state.df_clustered is not None and st.session_state.selected_columns is not None:
+                    df_clustered = st.session_state.df_clustered
+                    selected_columns = st.session_state.selected_columns
+                    X = df_clustered[selected_columns].values
+                    labels = df_clustered['Cluster'].values
+
+                # Cek minimal 2 cluster
+                if len(set(labels)) > 1:
+                    # Rata-rata
+                    silhouette_avg = silhouette_score(X, labels)
+                    st.subheader("Silhouette Coefficient (Average)")
+                    st.info(f"**Nilai Rata-rata:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
+
+                    # Per data
+                    sample_silhouette_values = silhouette_samples(X, labels)
+                    df_silhouette = pd.DataFrame({
+                        "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
+                        "Silhouette Coefficient": sample_silhouette_values,
+                        "Cluster": labels
+                    })
+
+                    with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
+                        st.dataframe(df_silhouette)
+
+                    # Boxplot distribusi per cluster
+                    st.subheader("Distribusi Silhouette Coefficient per Cluster")
+                    fig, ax = plt.subplots()
+                    sns.boxplot(x="Cluster", y="Silhouette Coefficient", data=df_silhouette, ax=ax)
+                    st.pyplot(fig)
         
         except Exception as e:
             st.error(f"Terjadi error: {str(e)}")
@@ -521,6 +550,4 @@ else:
     st.markdown(
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
-
-
 )
