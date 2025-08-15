@@ -513,19 +513,22 @@ else:
             if len(set(labels)) > 1:
                 # Rata-rata
                 silhouette_avg = silhouette_score(X, labels)
+                st.subheader("Silhouette Coefficient (Average)")
+                penjelasan = "Cluster terbentuk dengan sangat baik dan jelas terpisah."
                 if silhouette_avg > 0.70:
                     struktur_avg = "Strong Structure"
                 elif silhouette_avg > 0.50:
                     struktur_avg = "Medium Structure"
+                    penjelasan = "Cluster cukup baik, namun ada sedikit tumpang tindih."
                 elif silhouette_avg > 0.25:
                     struktur_avg = "Weak Structure"
+                    penjelasan = "Cluster lemah, banyak data yang saling tumpang tindih."
                 else:
                     struktur_avg = "No Structure"
+                    penjelasan = "Tidak ada struktur cluster yang jelas."
                 
                 st.markdown(f"**Kategori Struktur Cluster:** {struktur_avg}")
-                st.subheader("Silhouette Coefficient (Average)")
-                st.info(f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
-
+                st.info(f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} - {penjelasan}")
                 # Per data
                 sample_silhouette_values = silhouette_samples(X, labels)
                 df_silhouette = pd.DataFrame({
@@ -536,12 +539,6 @@ else:
 
                 with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
                     st.dataframe(df_silhouette)
-
-                # Boxplot distribusi per cluster
-                st.subheader("Distribusi Silhouette Coefficient per Cluster")
-                fig, ax = plt.subplots()
-                sns.boxplot(x="Cluster", y="Silhouette Coefficient", data=df_silhouette, ax=ax)
-                st.pyplot(fig)
         
         except Exception as e:
             st.error(f"Terjadi error: {str(e)}")
