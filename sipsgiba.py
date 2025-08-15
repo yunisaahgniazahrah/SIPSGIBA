@@ -509,35 +509,29 @@ else:
                     X = df_clustered[selected_columns].values
                     labels = df_clustered['Cluster'].values
 
-                # Cek minimal 2 cluster
-                if len(set(labels)) > 1:
-                    # Rata-rata
-                    silhouette_avg = silhouette_score(X, labels)
-                    st.subheader("Silhouette Coefficient (Average)")
-                    st.info(f"**Nilai Rata-rata:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
+            # Cek minimal 2 cluster
+            if len(set(labels)) > 1:
+                # Rata-rata
+                silhouette_avg = silhouette_score(X, labels)
+                st.subheader("Silhouette Coefficient (Average)")
+                st.info(f"**Nilai Rata-rata:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
 
-                    # Per data
-                    sample_silhouette_values = silhouette_samples(X, labels)
-                    df_silhouette = pd.DataFrame({
-                        "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
-                        "Silhouette Coefficient": sample_silhouette_values,
+                # Per data
+                sample_silhouette_values = silhouette_samples(X, labels)
+                df_silhouette = pd.DataFrame({
+                    "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
+                    "Silhouette Coefficient": sample_silhouette_values,
+                    "Cluster": labels
+                })
 
-                    })
+                with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
+                    st.dataframe(df_silhouette)
 
-                    for cluster_id in sorted(set(labels)):
-                        df_silhouette[f"C{cluster_id}"] = [
-                            val if labels[i] == cluster_id else None
-                            for i, val in enumerate(sample_silhouette_values)
-                    ]
-
-                    with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
-                        st.dataframe(df_silhouette)
-
-                    # Boxplot distribusi per cluster
-                    st.subheader("Distribusi Silhouette Coefficient per Cluster")
-                    fig, ax = plt.subplots()
-                    sns.boxplot(x="Cluster", y="Silhouette Coefficient", data=df_silhouette, ax=ax)
-                    st.pyplot(fig)
+                # Boxplot distribusi per cluster
+                st.subheader("Distribusi Silhouette Coefficient per Cluster")
+                fig, ax = plt.subplots()
+                sns.boxplot(x="Cluster", y="Silhouette Coefficient", data=df_silhouette, ax=ax)
+                st.pyplot(fig)
         
         except Exception as e:
             st.error(f"Terjadi error: {str(e)}")
