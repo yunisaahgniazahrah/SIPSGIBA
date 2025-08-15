@@ -531,17 +531,6 @@ else:
                     "Silhouette Coefficient": np.round(sample_silhouette_values, 3),
                     "Cluster": labels
                 })
-                def kategori_silhouette(value):
-                    if value > 0.70:
-                        return "Strong Structure"
-                    elif value > 0.50:
-                        return "Medium Structure"
-                    elif value > 0.25:
-                        return "Weak Structure"
-                    else:
-                        return "No Structure"
-
-                df_silhouette["Kategori Struktur"] = df_silhouette["Silhouette"].apply(kategori_silhouette)
 
                 with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
                     st.dataframe(df_silhouette)
