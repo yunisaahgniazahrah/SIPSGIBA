@@ -527,8 +527,10 @@ else:
                     struktur_avg = "No Structure"
                     penjelasan = "Tidak ada struktur cluster yang jelas."
                 
-                st.markdown(f"**Kategori Struktur Cluster:** {struktur_avg}")
-                st.info(f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} - {penjelasan}")
+                st.info(
+                    f"**Kategori Struktur Cluster:** {struktur_avg}  \n"
+                    f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} - {penjelasan}"
+                )
                 # Per data
                 sample_silhouette_values = silhouette_samples(X, labels)
                 df_silhouette = pd.DataFrame({
