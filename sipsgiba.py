@@ -513,8 +513,16 @@ else:
             if len(set(labels)) > 1:
                 # Rata-rata
                 silhouette_avg = silhouette_score(X, labels)
+                if silhouette_avg > 0.70:
+                    struktur = "Strong Structure"
+                elif silhouette_avg > 0.50:
+                    struktur = "Medium Structure"
+                elif silhouette_avg > 0.25:
+                    struktur = "Weak Structure"
+                else:
+                    struktur = "No Structure"
                 st.subheader("Silhouette Coefficient (Average)")
-                st.info(f"**Nilai Rata-rata:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
+                st.info(f"**Nilai Silhouette Coefficient:** {silhouette_avg:.3f} (Semakin mendekati 1, semakin baik)")
 
                 # Per data
                 sample_silhouette_values = silhouette_samples(X, labels)
