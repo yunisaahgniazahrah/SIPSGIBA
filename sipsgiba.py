@@ -159,7 +159,7 @@ else:
                 st.success("File berhasil diupload!")
                 
                 st.markdown("### Data Awal")
-                with st.expander("Berikut ini adalah data dari hasil file yang telah diunggah.", expanded=True):
+                with st.expander("Berikut ini adalah data dari hasil file yang telah diunggah", expanded=True):
                     show_data(df)
                     
                 numeric_cols = df.select_dtypes(include=np.number).columns.tolist()
@@ -591,4 +591,5 @@ else:
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
 )
+
 
