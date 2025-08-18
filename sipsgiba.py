@@ -534,6 +534,7 @@ else:
                 # Per data
                 sample_silhouette_values = silhouette_samples(X, labels)
                 df_silhouette = pd.DataFrame({
+                    "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
                     "Cluster": labels,
                     "Silhouette Coefficient": np.round(sample_silhouette_values, 3)
                 })
