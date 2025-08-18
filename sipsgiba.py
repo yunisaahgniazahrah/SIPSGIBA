@@ -341,28 +341,6 @@ else:
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
 
-                cluster_counts = df_clustered['Cluster'].value_counts().sort_index()
-                cluster_percent = (cluster_counts / len(df_clustered) * 100).round(2)
-
-                st.markdown("### Distribusi Data per Cluster")
-                distribusi_df = pd.DataFrame({
-                    "Cluster": cluster_counts.index,
-                    "Jumlah Data": cluster_counts.values,
-                    "Persentase (%)": cluster_percent.values
-                })
-                st.dataframe(distribusi_df)
-
-                # 🔹 Diagram Pie
-                fig_pie = px.pie(
-                    distribusi_df,
-                    names="Cluster",
-                    values="Jumlah Data",
-                    title="Distribusi Data per Cluster (%)",
-                    hole=0.3
-                )
-                fig_pie.update_traces(textinfo='percent+label')
-                st.plotly_chart(fig_pie, use_container_width=True)
-
                 pca = PCA(n_components=2)
                 X_pca = pca.fit_transform(X)
 
@@ -440,6 +418,28 @@ else:
                     width=700, height=500
                 )
                 st.plotly_chart(fig_c2, use_container_width=True)
+
+                cluster_counts = df_clustered['Cluster'].value_counts().sort_index()
+                cluster_percent = (cluster_counts / len(df_clustered) * 100).round(2)
+
+                st.markdown("### Distribusi Data per Cluster")
+                distribusi_df = pd.DataFrame({
+                    "Cluster": cluster_counts.index,
+                    "Jumlah Data": cluster_counts.values,
+                    "Persentase (%)": cluster_percent.values
+                })
+                st.dataframe(distribusi_df)
+
+                # 🔹 Diagram Pie
+                fig_pie = px.pie(
+                    distribusi_df,
+                    names="Cluster",
+                    values="Jumlah Data",
+                    title="Distribusi Data per Cluster (%)",
+                    hole=0.3
+                )
+                fig_pie.update_traces(textinfo='percent+label')
+                st.plotly_chart(fig_pie, use_container_width=True)
 
         except Exception as e:
             st.error(f"Terjadi error: {str(e)}")
