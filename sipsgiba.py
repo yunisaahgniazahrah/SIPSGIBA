@@ -274,6 +274,7 @@ else:
                 kmeans = KMeans(
                     n_clusters=num_clusters,
                     init=initial_centroids,
+                    random_state=42,
                     n_init=1
                 )
                 clusters = kmeans.fit_predict(X)
