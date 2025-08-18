@@ -430,13 +430,14 @@ else:
                     "Persentase (%)": cluster_percent.values
                 })
 
-                # 🔹 Diagram Pie
+                #Diagram Pie
                 fig_pie = px.pie(
                     distribusi_df,
                     names="Cluster",
                     values="Jumlah Data",
-                    title="Distribusi Data per Cluster (%)",
-                    hole=0.3
+                    title="Persentase Cluster per Data(%)",
+                    hole=0.3,
+                    color="Cluster"
                 )
                 fig_pie.update_traces(textinfo='percent+label')
                 st.plotly_chart(fig_pie, use_container_width=True)
