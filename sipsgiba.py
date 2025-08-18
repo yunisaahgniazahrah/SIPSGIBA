@@ -439,6 +439,10 @@ else:
                     hole=0.3,
                     color="Cluster"
                 )
+                fig_pie.update_layout(
+                    legend_title="Cluster"
+                )
+
                 fig_pie.update_traces(textinfo='percent+label')
                 st.plotly_chart(fig_pie, use_container_width=True)
 
