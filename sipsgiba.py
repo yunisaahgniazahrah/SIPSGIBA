@@ -541,7 +541,7 @@ else:
             if len(set(labels)) > 1:
                 # Rata-rata
                 silhouette_avg = silhouette_score(X, labels)
-                st.subheader("Silhouette Coefficient (Average)")
+                st.subheader("Silhouette Coefficient")
                 penjelasan = "Cluster terbentuk dengan sangat baik dan jelas terpisah."
                 if silhouette_avg > 0.70:
                     struktur_avg = "Strong Structure"
@@ -591,3 +591,4 @@ else:
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
 )
+
