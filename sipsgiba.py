@@ -370,6 +370,28 @@ else:
                 )
                 st.plotly_chart(fig, use_container_width=True)
 
+                cluster_counts = df_clustered['Cluster'].value_counts().sort_index()
+                cluster_percent = (cluster_counts / len(df_clustered) * 100).round(2)
+
+                st.markdown("### Distribusi Data per Cluster")
+                distribusi_df = pd.DataFrame({
+                    "Cluster": cluster_counts.index,
+                    "Jumlah Data": cluster_counts.values,
+                    "Persentase (%)": cluster_percent.values
+                })
+                st.dataframe(distribusi_df)
+
+                # 🔹 Diagram Pie
+                fig_pie = px.pie(
+                    distribusi_df,
+                    names="Cluster",
+                    values="Jumlah Data",
+                    title="Distribusi Data per Cluster (%)",
+                    hole=0.3
+                )
+                fig_pie.update_traces(textinfo='percent+label')
+                st.plotly_chart(fig_pie, use_container_width=True)
+
                 df_c1 = df_pca[df_pca['Cluster'] == '1']
                 df_c2 = df_pca[df_pca['Cluster'] == '2']
 
