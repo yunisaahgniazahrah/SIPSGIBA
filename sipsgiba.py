@@ -541,6 +541,13 @@ else:
 
                 with st.expander("Tabel Silhouette Coefficient per Data", expanded=True):
                     st.dataframe(df_silhouette)
+                    if st.session_state.df is not None:
+                        df_awal = st.session_state.df.reset_index(drop=True)
+                        df_silhouette_full = pd.concat([df_awal, df_silhouette], axis=1)
+
+                        st.subheader("Data Awal + Nilai Silhouette")
+                        st.dataframe(df_silhouette_full)
+
         
         except Exception as e:
             st.error(f"Terjadi error: {str(e)}")
