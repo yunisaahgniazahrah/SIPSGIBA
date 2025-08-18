@@ -424,7 +424,7 @@ else:
                 cluster_counts = df_clustered['Cluster'].value_counts().sort_index()
                 cluster_percent = (cluster_counts / len(df_clustered) * 100).round(2)
 
-                st.markdown("### Distribusi Data per Cluster")
+                st.markdown("### Persentase Cluster per Data")
                 distribusi_df = pd.DataFrame({
                     "Cluster": cluster_counts.index,
                     "Jumlah Data": cluster_counts.values,
@@ -433,7 +433,7 @@ else:
                 st.dataframe(distribusi_df)
 
                 # 🔹 Diagram Pie
-                fig_pie = px.pie(
+                    fig_pie = px.pie(
                     distribusi_df,
                     names="Cluster",
                     values="Jumlah Data",
@@ -588,3 +588,4 @@ else:
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
 )
+
