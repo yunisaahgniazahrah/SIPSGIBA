@@ -178,7 +178,7 @@ else:
                             continue
                         max_value = df_normalized[col].max()
                         if max_value != 0:  # Hindari pembagian dengan nol
-                            df_normalized[col] = (df_normalized[col] / max_value).round(3)
+                            df_normalized[col] = (df_normalized[col] / max_value).round(2)
 
                         st.session_state.df_normalized = df_normalized
                         st.session_state.selected_columns = numeric_cols
@@ -292,7 +292,7 @@ else:
 
                 st.subheader("Titik Akhir Centroid")
                 with st.expander("Berikut ini adalah data dari titik akhir centroid", expanded=True):
-                    cluster_stats = df_clustered.groupby("Cluster")[selected_columns].mean().round(3)
+                    cluster_stats = df_clustered.groupby("Cluster")[selected_columns].mean().round(2)
                     st.write(cluster_stats)
 
                 if len(selected_columns) == 2:
@@ -495,7 +495,7 @@ else:
                     jarak_list = []
                     for idx, row in df_norm[selected_columns].iterrows():
                         distance = math.sqrt(sum((row[col] - c[j])**2 for j, col in enumerate(selected_columns)))
-                        jarak_list.append(round(distance, 3))
+                        jarak_list.append(round(distance, 2))
                         jarak_dict[f'C{i+1}'] = jarak_list
 
                 df_jarak = pd.DataFrame(jarak_dict)
@@ -509,7 +509,7 @@ else:
                     # Ambil centroid akhir dari hasil clustering sebelumnya
                     df_clustered = st.session_state.df_clustered
                     selected_columns = st.session_state.selected_columns
-                    centroid_final = df_clustered.groupby("Cluster")[selected_columns].mean().round(3)
+                    centroid_final = df_clustered.groupby("Cluster")[selected_columns].mean().round(2)
                     centroid_final.index = [f"C{i}" for i in centroid_final.index]  # Cluster 1 → C1
                     with st.expander("Berikut ini adalah titik akhir centroid hasil clustering sebelumnya", expanded=True):
                          st.dataframe(centroid_final)
@@ -524,7 +524,7 @@ else:
                          jarak_list = []
                          for idx, row in df_norm[selected_columns].iterrows():
                               distance = math.sqrt(sum((row[col] - c[j])**2 for j, col in enumerate(selected_columns)))
-                              jarak_list.append(round(distance, 3))
+                              jarak_list.append(round(distance, 2))
                          jarak_dict[f'C{i+1}'] = jarak_list
 
                     df_jarak_final = pd.DataFrame(jarak_dict)
@@ -563,7 +563,7 @@ else:
                 sample_silhouette_values = silhouette_samples(X, labels)
                 df_silhouette = pd.DataFrame({
                     "Cluster": labels,
-                    "Silhouette Coefficient": np.round(sample_silhouette_values, 3)
+                    "Silhouette Coefficient": np.round(sample_silhouette_values, 2)
                 })
 
                 if st.session_state.df is not None:
