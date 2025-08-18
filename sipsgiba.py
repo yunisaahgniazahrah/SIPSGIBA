@@ -154,6 +154,7 @@ else:
         if uploaded_file is not None:
             try:
                 df = pd.read_csv(uploaded_file)
+                df = df.dropna().drop_duplicates().reset_index(drop=True)
                 st.session_state.df = df
                 st.success("File berhasil diupload!")
                 
