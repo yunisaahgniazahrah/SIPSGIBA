@@ -534,14 +534,13 @@ else:
                 # Per data
                 sample_silhouette_values = silhouette_samples(X, labels)
                 df_silhouette = pd.DataFrame({
-                    "Data": [f"Data {i+1}" for i in range(len(sample_silhouette_values))],
                     "Cluster": labels,
                     "Silhouette Coefficient": np.round(sample_silhouette_values, 3)
                 })
 
                 if st.session_state.df is not None:
                     df_awal = st.session_state.df.reset_index(drop=True)
-                    df_silhouette_full = pd.concat([df_awal, df_clustered, df_silhouette], axis=1)
+                    df_silhouette_full = pd.concat([df_awal, df_silhouette], axis=1)
                     with st.expander("Berikut ini adalah nilai Silhouette Coefficient ", expanded=True):
                         st.dataframe(df_silhouette_full)
 
