@@ -433,7 +433,7 @@ else:
                 st.dataframe(distribusi_df)
 
                 # 🔹 Diagram Pie
-                    fig_pie = px.pie(
+                fig_pie = px.pie(
                     distribusi_df,
                     names="Cluster",
                     values="Jumlah Data",
@@ -588,4 +588,5 @@ else:
     "<p style='text-align:center; font-size: 14px;'>© 2025 Puskesmas Tanah Sareal</p>",
     unsafe_allow_html=True
 )
+
 
