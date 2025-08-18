@@ -542,8 +542,6 @@ else:
                 if st.session_state.df is not None:
                     df_awal = st.session_state.df.reset_index(drop=True)
                     df_silhouette_full = pd.concat([df_awal, df_silhouette], axis=1)
-
-                    st.subheader("Nilai Silhouette Coefficient")
                     st.dataframe(df_silhouette_full)
 
         
